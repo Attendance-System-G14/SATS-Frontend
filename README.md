@@ -1,7 +1,6 @@
 # sats
 
-A new Flutter project.
-
+STUDENT ATTENDANCE TRACKING SYSTEM
 ## Getting Started
 
 This project is a starting point for a Flutter application.
