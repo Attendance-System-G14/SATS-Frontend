@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
+import 'package:sats/Faculty/home.dart';
 import 'package:sats/auth/auth.dart';
 import 'package:sats/auth/views/login_page.dart';
-import 'package:sats/home.dart';
 
 Future<void> main() async {
   await DotEnv().load('.env'); // load environment variable

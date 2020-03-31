@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Auth extends ChangeNotifier {
   String token;
   String name;
+  String email;
   bool logined = false;
 
   Future<void> init() async {
@@ -22,6 +23,7 @@ class Auth extends ChangeNotifier {
     try {
       User user = await getUserDetail(token);
       this.name = user.firstName + ' ' + user.lastName;
+      this.email = user.email;
     } catch (e) {
       print("Token: ");
       print(token);
@@ -49,12 +51,14 @@ class Auth extends ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('DJANGO_TOKEN', this.token);
     prefs.setString('FULL_NAME', this.name);
+    prefs.setString('EMAIL', this.email);
   }
 
   loadLoginPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     this.token = prefs.getString('DJANGO_TOKEN') ?? null;
     this.name = prefs.getString('FULL_NAME') ?? null;
+    this.email = prefs.getString('EMAIL') ?? null;
   }
 
   Future<bool> checkLogin(BuildContext context) async {
