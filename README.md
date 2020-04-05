@@ -1,4 +1,5 @@
-# sats
+[![Actions Status](https://github.com/Attendance-System-G14/SATS-Frontend/workflows/Android%20CI/badge.svg)](https://github.com/Attendance-System-G14/SATS-Frontend/actions)
+# Student Attendance Tracking System
 
 STUDENT ATTENDANCE TRACKING SYSTEM
 ## Getting Started
