@@ -16,4 +16,7 @@ jobs:
       with:
         flutter-version: '1.12.13+hotfix.8'
     - run: flutter pub get
+    - name: Create Environment file
+      run: |
+        cp .env.dev .env
     - run: flutter build appbundle
