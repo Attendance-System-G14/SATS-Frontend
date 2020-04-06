@@ -8,11 +8,14 @@ class Auth extends ChangeNotifier {
   String token;
   String name;
   String email;
-  bool logined = false;
+  String userType;
+  bool logined;
 
   Future<void> init() async {
     await loadLoginPrefs();
     this.logined = (token == null) ? false : true;
+    notifyListeners();
+    await loadUserData();
 
     notifyListeners();
   }
@@ -20,10 +23,18 @@ class Auth extends ChangeNotifier {
   Future<bool> login() async {
     Map<String, String> credential = await handleGoogleSignIn();
     token = await logintoBakend(credential['accessToken']);
+    await loadUserData();
+
+    notifyListeners();
+    return this.logined;
+  }
+
+  loadUserData() async {
     try {
       User user = await getUserDetail(token);
       this.name = user.firstName + ' ' + user.lastName;
       this.email = user.email;
+      this.userType = user.userType;
     } catch (e) {
       print("Token: ");
       print(token);
@@ -31,9 +42,6 @@ class Auth extends ChangeNotifier {
     }
     await setLoginPrefs();
     this.logined = (token == null) ? false : true;
-
-    notifyListeners();
-    return this.logined;
   }
 
   Future<void> logout() async {
@@ -52,6 +60,7 @@ class Auth extends ChangeNotifier {
     prefs.setString('DJANGO_TOKEN', this.token);
     prefs.setString('FULL_NAME', this.name);
     prefs.setString('EMAIL', this.email);
+    prefs.setString('USER_TYPE', this.userType);
   }
 
   loadLoginPrefs() async {
@@ -59,6 +68,7 @@ class Auth extends ChangeNotifier {
     this.token = prefs.getString('DJANGO_TOKEN') ?? null;
     this.name = prefs.getString('FULL_NAME') ?? null;
     this.email = prefs.getString('EMAIL') ?? null;
+    this.userType = prefs.getString('USER_TYPE') ?? null;
   }
 
   Future<bool> checkLogin(BuildContext context) async {

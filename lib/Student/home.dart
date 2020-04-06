@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:sats/Faculty/drawer.dart';
 
-class FacultyHomePage extends StatefulWidget {
+class StudentHomePage extends StatefulWidget {
 
   @override
-  _FacultyHomePageState createState() => _FacultyHomePageState();
+  _StudentHomePageState createState() => _StudentHomePageState();
 }
 
-class _FacultyHomePageState extends State<FacultyHomePage> {
+class _StudentHomePageState extends State<StudentHomePage> {
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class _FacultyHomePageState extends State<FacultyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Thk hai!',
+              'Thk nhi hai!',
             ),
           ],
         ),

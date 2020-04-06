@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:sats/Faculty/home.dart';
+import 'package:sats/Student/home.dart';
 import 'package:sats/auth/auth.dart';
 import 'package:sats/auth/views/login_page.dart';
 
@@ -25,20 +26,35 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: Consumer<Auth>(
         builder: (BuildContext context, Auth value, Widget child) {
-          if(value.logined)
-            return MyHomePage(title: 'Flutter Demo Home Page');
-          else
+          if (value.logined == true) {
+            if(value.userType == 'student')
+              return StudentHomePage();
+            else
+              return FacultyHomePage();
+          } else if(value.logined == false)
             return LoginPageView();
+          else
+            return LoadingPage();
         },
       ),
       routes: <String, WidgetBuilder>{
         '/login': (BuildContext context) => LoginPageView(),
       },
+    );
+  }
+}
+
+class LoadingPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(child: CircularProgressIndicator(),)
     );
   }
 }
