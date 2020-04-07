@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sats/Faculty/drawer.dart';
+import 'package:sats/Student/drawer.dart';
 
 class StudentHomePage extends StatefulWidget {
 
