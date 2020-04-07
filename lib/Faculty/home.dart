@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sats/Faculty/Course/view/course_list_view.dart';
 import 'package:sats/Faculty/drawer.dart';
 
 class FacultyHomePage extends StatefulWidget {
@@ -16,13 +17,11 @@ class _FacultyHomePageState extends State<FacultyHomePage> {
         title: Text('SATS'),
       ),
       drawer: CustomDrawer(),
-      body: Center(
+      body: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'Thk hai!',
-            ),
+            Flexible(child: CourseListView(),)
           ],
         ),
       ),
