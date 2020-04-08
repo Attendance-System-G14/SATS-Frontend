@@ -8,7 +8,7 @@ class CourseTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white30,
+      color: Color.fromRGBO(72, 129, 219, .9),
       child: Container(
         padding: EdgeInsets.all(20),
         child: Row(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sats/Faculty/Course/CoursePage/views/course_home_page.dart';
 import 'package:sats/Faculty/Course/model.dart';
 import 'package:sats/Faculty/Course/services.dart';
 import 'package:sats/Faculty/Course/view/course_tile.dart';
@@ -24,15 +25,15 @@ class _CourseListViewState extends State<CourseListView> {
           return ListView.builder(
               itemCount: courses.length,
               itemBuilder: (context, index) {
-                return Card(
-                  elevation: 8.0,
-                  margin:
-                      new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-                  child: Container(
-                    decoration:
-                        BoxDecoration(color: Color.fromRGBO(72, 129, 219, .9)),
-                    child: CourseTile(courses[index]),
-                  ),
+                return InkWell(
+                  child: CourseTile(courses[index]),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                CourseHomePage(courses[index])));
+                  },
                 );
               });
         } else if (snapshot.hasError) {
