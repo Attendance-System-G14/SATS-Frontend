@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:sats/Faculty/Course/CoursePage/models.dart';
 import 'package:sats/Faculty/Course/CoursePage/services.dart';
+import 'package:sats/Faculty/Course/CoursePage/views/attendance_tile.dart';
 
 class AttendanceList extends StatefulWidget {
+  AttendanceList({Key key}) : super(key: key);
+
   @override
-  _AttendanceListState createState() => _AttendanceListState();
+  AttendanceListState createState() => AttendanceListState();
 }
 
-class _AttendanceListState extends State<AttendanceList> {
+class AttendanceListState extends State<AttendanceList> {
   Widget _body;
+  List<Attendance> allAttendances = [];
+  DateTime startdateTime, enddateTime;
+  String lectureType;
 
   _buildAttendanceList() {
     return FutureBuilder(
@@ -20,12 +25,11 @@ class _AttendanceListState extends State<AttendanceList> {
             child: CircularProgressIndicator(),
           );
         else if (snapshot.hasData) {
-          List<Attendance> attendances = snapshot.data;
+          allAttendances = snapshot.data;
           return ListView.builder(
-            itemCount: attendances.length,
+            itemCount: allAttendances.length,
             itemBuilder: (context, index) {
-              return Text(
-                  '${DateFormat("dd, MMM").format(attendances[index].dateTime)}');
+              return AttendanceTile(allAttendances[index]);
             },
           );
         } else if (snapshot.hasError) {
@@ -56,5 +60,36 @@ class _AttendanceListState extends State<AttendanceList> {
   @override
   Widget build(BuildContext context) {
     return _body;
+  }
+
+  void filterAttendance(DateTime startdate, DateTime enddate, String lectureT) {
+    if (startdate != null) startdateTime = startdate;
+    if (enddate != null) enddateTime = enddate;
+    if (lectureT != null) lectureType = lectureT;
+
+    List<Attendance> fillteredattendance = [];
+
+    for (Attendance attendance in allAttendances) {
+      bool pass = true;
+      if (startdateTime != null && enddateTime != null) {
+        if (!(attendance.dateTime.isAfter(startdateTime) &&
+            attendance.dateTime
+                .isBefore(enddateTime.add(const Duration(days: 1)))))
+          pass = false;
+      }
+      if (lectureType != null && lectureType != 'All') {
+        if (attendance.lectureType != lectureType) pass = false;
+      }
+      if (pass) fillteredattendance.add(attendance);
+    }
+
+    setState(() {
+      _body = ListView.builder(
+        itemCount: fillteredattendance.length,
+        itemBuilder: (context, index) {
+          return AttendanceTile(fillteredattendance[index]);
+        },
+      );
+    });
   }
 }
