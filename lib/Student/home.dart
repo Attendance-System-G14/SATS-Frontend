@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sats/Student/Course/view/course_list_view.dart';
 import 'package:sats/Student/drawer.dart';
 
 class StudentHomePage extends StatefulWidget {
@@ -17,14 +18,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
       ),
       drawer: CustomDrawer(),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Thk nhi hai!',
-            ),
-          ],
-        ),
+        child: CourseListView()
       ),
     );
   }
