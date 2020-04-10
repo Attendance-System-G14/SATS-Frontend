@@ -24,8 +24,7 @@ class _CourseListViewState extends State<CourseListView> {
           return ListView.builder(
               itemCount: courses.length,
               itemBuilder: (context, index) {
-                return Card(
-                  elevation: 8.0,
+                return InkWell(
                   child: CourseTile(courses[index]),
                 );
               });
