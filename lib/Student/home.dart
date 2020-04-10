@@ -47,6 +47,27 @@ class _StudentHomePageState extends State<StudentHomePage> {
     );
   }
 
+  Widget _getsemesterdetail(){
+    var now = DateTime.now();
+    var sem ;
+    var academicyear;
+    var midyear = DateTime.utc(now.year,6,30);
+    if (now.isBefore(midyear)){
+      sem = "2nd Sem of AY ";
+      academicyear = (now.year - 1).toString() + '-' + (now.year % 100).toString();
+    }
+    else{
+      sem = "1st Sem of AY ";
+      academicyear = (now.year).toString() + '-' + ((now.year + 1) % 100).toString();
+    }
+    return RichText(
+      text: TextSpan(
+          text: sem+academicyear,
+          style: TextStyle(color: Colors.black, fontSize: 17),
+          ),
+    );
+  }
+
   Widget _getStudentStatsUI() {
     return Container(
       padding: const EdgeInsets.all(12.0),
@@ -75,6 +96,15 @@ class _StudentHomePageState extends State<StudentHomePage> {
                     size: 20,
                   ),
                   _generatedetails("Overall Attendance", " 75%")
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Icon(
+                    Icons.calendar_today,
+                    size: 20,
+                  ),
+                  _getsemesterdetail(),
                 ],
               )
             ],
