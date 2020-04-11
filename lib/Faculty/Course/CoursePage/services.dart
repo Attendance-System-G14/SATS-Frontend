@@ -8,3 +8,12 @@ Future<List<Attendance>> loadAttendanceList() async {
   }
   return attendances;
 }
+
+Future<List<Student>> loadStudentList() async {
+  List<Student> students = [];
+  for (int i = 0; i < 20; i++) {
+    students.add(
+        Student('Student ' + i.toString(), '2017csb107' + i.toString(), i));
+  }
+  return students;
+}

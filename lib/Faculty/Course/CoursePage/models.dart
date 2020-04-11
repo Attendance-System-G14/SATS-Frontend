@@ -13,3 +13,17 @@ class Attendance{
     this.lectureType = json['lecture_type'];
   }
 }
+
+class Student{
+  String name;
+  String entryNumber;
+  int classessAttended;
+
+  Student(this.name, this.entryNumber, this.classessAttended);
+
+  Student.fromJson(Map json){
+    this.name = json['name'];
+    this.entryNumber = json['entry_number'];
+    this.classessAttended = json['classess_attended'];
+  }
+}

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sats/Faculty/Course/CoursePage/views/attendance_list.dart';
 import 'package:sats/Faculty/Course/CoursePage/views/custom_calendar/calendar_popup_view.dart';
+import 'package:sats/Faculty/Course/CoursePage/views/student_list.dart';
 import 'package:sats/Faculty/Course/model.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class CourseHomePage extends StatefulWidget {
   final Course course;
@@ -25,16 +27,53 @@ class _CourseHomePageState extends State<CourseHomePage> {
       appBar: AppBar(
         title: Text('(' + widget.course.code + ') ' + widget.course.name),
       ),
-      body: Container(
-        child: Column(
+      body: SlidingUpPanel(
+        body: Container(
+          child: Column(
+            children: <Widget>[
+              _getFilterbarUI(),
+              Flexible(
+                child: AttendanceList(
+                  key: _courseHomePageState,
+                ),
+              )
+            ],
+          ),
+        ),
+        panel: Column(
           children: <Widget>[
-            _getFilterbarUI(),
-            Flexible(
-              child: AttendanceList(
-                key: _courseHomePageState,
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[Icon(Icons.people), Text(' All Students')],
               ),
-            )
+            ),
+            Flexible(child: StudentList())
           ],
+        ),
+        collapsed: Container(
+          decoration: BoxDecoration(
+              color: Colors.blueGrey,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(24.0),
+                topRight: Radius.circular(24.0),
+              )),
+          child: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(
+                  Icons.people,
+                  size: 30,
+                  color: Colors.white,
+                ),
+                Text(
+                  ' All Students',
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                )
+              ],
+            ),
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(

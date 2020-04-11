@@ -1,32 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:sats/Faculty/Course/CoursePage/models.dart';
 import 'package:sats/common/views/progress_bar.dart';
 
-class AttendanceTile extends StatefulWidget {
-  final Attendance attendance;
-  AttendanceTile(this.attendance);
+class StudentTile extends StatefulWidget {
+  final Student student;
+  StudentTile(this.student);
 
   @override
-  _AttendanceTileState createState() => _AttendanceTileState();
+  _StudentTileState createState() => _StudentTileState();
 }
 
-class _AttendanceTileState extends State<AttendanceTile>
+class _StudentTileState extends State<StudentTile>
     with SingleTickerProviderStateMixin {
   AnimationController progressController;
 
   _getCircleProgressWidget() {
     progressController.forward();
     return CustomPaint(
-        foregroundPainter: CircleProgress((widget.attendance.presentStudents /
-                widget.attendance.totalStudents) *
-            100.0), // this will add custom painter after child
+        foregroundPainter: CircleProgress(
+            (widget.student.classessAttended / 60) *
+                100.0), // this will add custom painter after child
         child: Container(
           width: 80,
           height: 80,
           child: Center(
               child: Text(
-            "${widget.attendance.presentStudents}/${widget.attendance.totalStudents}",
+            "${widget.student.classessAttended}/${60}",
             style: TextStyle(fontSize: 12),
           )),
         ));
@@ -47,9 +46,6 @@ class _AttendanceTileState extends State<AttendanceTile>
 
   @override
   Widget build(BuildContext context) {
-    Color lTypeColor = Colors.blueGrey;
-    if (widget.attendance.lectureType == 'Lecture')
-      lTypeColor = Colors.blueAccent;
     return Padding(
       padding: EdgeInsets.all(4),
       child: Card(
@@ -65,7 +61,7 @@ class _AttendanceTileState extends State<AttendanceTile>
                   Row(
                     children: <Widget>[
                       Text(
-                        '${DateFormat("dd, MMM").format(widget.attendance.dateTime)}',
+                        widget.student.entryNumber,
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
@@ -73,8 +69,7 @@ class _AttendanceTileState extends State<AttendanceTile>
                         width: 8,
                       ),
                       Text(
-                        widget.attendance.lectureType,
-                        style: TextStyle(color: lTypeColor),
+                        widget.student.name,
                       )
                     ],
                   ),
@@ -82,7 +77,7 @@ class _AttendanceTileState extends State<AttendanceTile>
                     height: 8,
                   ),
                   Text(
-                      '${DateFormat("Hm").format(widget.attendance.dateTime)}'),
+                      'kuchh bhi'),
                 ],
               ),
             ),
