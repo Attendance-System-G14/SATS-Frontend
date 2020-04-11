@@ -17,9 +17,7 @@ class CourseTile extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Wrap(
-                direction: Axis.horizontal,
-                children: <Widget>[
+              Wrap(direction: Axis.horizontal, children: <Widget>[
                 Text(
                   course.name,
                   style: TextStyle(
@@ -44,7 +42,7 @@ class CourseTile extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'Faculty: Punia',
+                          course.falulty,
                           style: TextStyle(
                             color: Colors.grey[500],
                             fontWeight: FontWeight.bold,
@@ -83,7 +81,11 @@ class CourseTile extends StatelessWidget {
                       animationDuration: 2000,
                       animateFromLastPercent: false,
                       percent: course.present / course.total,
-                      center: new Text(((course.present / course.total) * 100).toStringAsFixed(2) +"%"),
+                      center: Text((course.total == 0
+                                  ? 0
+                                  : ((course.present / course.total) * 100))
+                              .toStringAsFixed(2) +
+                          "%"),
                       circularStrokeCap: CircularStrokeCap.round,
                       progressColor: Colors.green,
                     ),

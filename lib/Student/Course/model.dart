@@ -1,16 +1,16 @@
 class Course {
   String name;
   String code;
+  String falulty;
   int total;
   int present;
-  int absent;
-  Course(this.name, this.code, this.total, this.present, this.absent);
+  Course(this.name, this.code, this.falulty, this.total, this.present);
 
   Course.fromJson(Map json) {
-    this.code = json['code'];
-    this.name = json['name'];
-    this.total = json['total'];
-    this.present = json['present'];
-    this.absent = json['absent'];
+    this.code = json['course']['code'];
+    this.name = json['course']['name'];
+    this.falulty = json['faculty'];
+    this.total = json['classess_total'];
+    this.present = json['classess_present'];
   }
 }
